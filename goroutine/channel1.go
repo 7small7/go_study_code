@@ -1,23 +1,15 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
 
+// channel的声明
 func main() {
-	channel := make(chan int)
+	var channel1 chan int
+	fmt.Println(channel1) //<nil>
 
-	go func() {
-		val, ok := <-channel
-		fmt.Println(val, ok)
-	}()
-
-	go func() {
-		channel <- 1
-	}()
-
+	channel := make(chan int, 1)
 	defer close(channel)
-
-	time.Sleep(time.Second)
+	channel <- 10
+	val, ok := <-channel
+	fmt.Println(val, ok) // 10 true
 }
