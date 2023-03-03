@@ -11,7 +11,17 @@ import "fmt"
 //知识点 7：defer 下的函数参数包含子函数。会先进行子函数的结果值，然后在按照栈的顺序进行输出。
 
 func main() {
-	demo6()
+	fmt.Println(demo3())
+}
+
+func demo7() int {
+	var a int
+	defer func(a *int) {
+		fmt.Println(*a)
+		*a = 10
+	}(&a)
+
+	return 2
 }
 
 func function(index int, value int) int {
@@ -55,6 +65,7 @@ func demo4() {
 
 func demo3() (a int) {
 	defer func() {
+		fmt.Println(a)
 		a = 3
 	}()
 	return 1
@@ -66,7 +77,7 @@ func demo2() int {
 	}()
 	return func() int {
 		fmt.Println("1")
-		return 1
+		return 4
 	}()
 }
 
